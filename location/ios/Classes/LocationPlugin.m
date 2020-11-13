@@ -143,12 +143,21 @@
                 }
             }];
 #else
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Location is Disabled"
-                message:@"To use location, go to your Settings App > Privacy > Location Services."
-                delegate:self
-                cancelButtonTitle:@"Cancel"
-                otherButtonTitles:nil];
-            [alert show];
+            UIAlertController * alert = [UIAlertController
+                alertControllerWithTitle:@"Location is Disabled"
+                                 message:@"To use location, go to your Settings App > Privacy > Location Services."
+                          preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction* cancelButton = [UIAlertAction
+                                actionWithTitle:@"Cancel"
+                                          style:UIAlertActionStyleDefault
+                                        handler:^(UIAlertAction * action) {
+                                            [self dismissViewControllerAnimated:YES completion:nil];
+                                        }];
+
+            [alert addAction:cancelButton];
+
+            [self presentViewController:alert animated:YES completion:nil];
 #endif
             result(@0);
         }
